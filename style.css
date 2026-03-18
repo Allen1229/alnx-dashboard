@@ -54,11 +54,40 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  background-size: 100% 2px, 3px 100%;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 210, 255, 0.05) 50%), 
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 4px, 40px 40px, 40px 40px;
   pointer-events: none;
   z-index: -1;
+  animation: gridMove 20s linear infinite;
+}
+
+/* 掃描線動畫 (由上往下掃) */
+.grid-overlay::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(0, 210, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.8), 0 0 30px rgba(0, 210, 255, 0.5);
+  animation: scanline 10s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes gridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+@keyframes scanline {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { top: 110%; opacity: 0; }
 }
 
 /* --- 導覽列 --- */
@@ -201,7 +230,6 @@ body {
 .tool-card {
   background: var(--panel-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 30px;
   position: relative;
@@ -209,12 +237,53 @@ body {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
   display: flex;
   flex-direction: column;
+  /* Add border fallback */
+  border: 1px solid var(--border-color);
+  z-index: 1; /* Keep content above animated border */
+}
+
+/* --- 動態邊框效果 (Cyberpunk Line) --- */
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent, 
+    transparent, 
+    transparent, 
+    var(--accent-primary)
+  );
+  animation: rotateBorder 7s linear infinite;
+  z-index: -2;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+
+.tool-card::after {
+  content: '';
+  position: absolute;
+  inset: 2px; /* 邊框寬度 */
+  background: var(--panel-bg);
+  border-radius: 18px; /* 比外層圓角小一點 */
+  z-index: -1;
+}
+
+@keyframes rotateBorder {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .tool-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(13, 22, 38, 0.85);
+  box-shadow: 0 10px 30px rgba(0, 210, 255, 0.15);
+}
+
+.tool-card:hover::before {
+  opacity: 1; /* 懸停時邊框光線變亮 */
+  animation: rotateBorder 3s linear infinite; /* 懸停時加快一點 */
 }
 
 .card-glow {
