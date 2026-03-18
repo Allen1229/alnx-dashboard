@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALN-X | 我的 AI 工具儀表板</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="個人專屬 AI 工具儀表板，整合開發者與使用者級別的 AI 應用。">
+</head>
+<body class="cyber-theme">
+    <div class="stars-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <header class="glass-header">
+        <div class="logo">
+            <span class="logo-text">ALN-<span>X</span></span>
+        </div>
+        <nav class="user-controls">
+            <div id="user-profile" class="profile-container hidden">
+                <img src="https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff" alt="User Avatar" class="avatar">
+                <div class="user-info">
+                    <p class="user-name">訪客使用者</p>
+                    <p class="user-email">user@gmail.com</p>
+                </div>
+                <button id="logout-btn" class="btn-outline">登出</button>
+            </div>
+            <button id="login-btn" class="btn-primary neon-glow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+                Google 登入
+            </button>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="dashboard-hero">
+            <h1>我的 AI 工具箱</h1>
+            <p>融合開發者 API 與使用者私人資料的智能控制台</p>
+        </section>
+
+        <div class="filter-tabs">
+            <button class="tab-btn active" data-filter="all">全部工具</button>
+            <button class="tab-btn" data-filter="type1">常用工具 (Dev API)</button>
+            <button class="tab-btn" data-filter="type2">私人助理 (User API)</button>
+        </div>
+
+        <div class="tool-grid" id="tool-grid">
+            <!-- 工具卡片 1 - CookingSavior (Type 1) -->
+            <div class="tool-card type1" data-type="type1">
+                <div class="card-glow"></div>
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z" />
+                        <line x1="6" y1="17" x2="18" y2="17" />
+                    </svg>
+                </div>
+                <h3>料理救星</h3>
+                <p>拍下冰箱剩餘食材，AI 主廚立刻為您端出三道美味的救援食譜！</p>
+                <div class="badge dev-api">Dev API</div>
+                <button class="tool-btn" onclick="window.open('https://cooking-savior.pages.dev/', '_blank')">立即啟動</button>
+            </div>
+
+            <!-- 工具卡片 2 - KBUpdates (Type 2 - 知識管理) -->
+            <div class="tool-card type2 locked" data-type="type2">
+                <div class="card-glow"></div>
+                <div class="lock-overlay">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <span>需要 Google 登入</span>
+                </div>
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                        <path d="M8 6h10" /><path d="M8 10h10" /><path d="M8 14h10" />
+                    </svg>
+                </div>
+                <h3>KB 知識庫更新</h3>
+                <p>自動同步您的個人文檔、筆記，並透過 AI 進行總結與關鍵詞更新。</p>
+                <div class="badge user-api">User API</div>
+                <button class="tool-btn" onclick="window.open('./KBUpdates/index.html', '_blank')">啟動更新</button>
+            </div>
+
+            <!-- 工具卡片 3 - 創意影像生成 (Type 1) -->
+            <div class="tool-card type1" data-type="type1">
+                <div class="card-glow"></div>
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <h3>創意影像生成</h3>
+                <p>快速生成高品質的視覺設計與概念圖示。</p>
+                <div class="badge dev-api">Dev API</div>
+                <button class="tool-btn">立即啟動</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="glass-footer">
+        <p>&copy; 2026 ALN-X Ecosystem. Powered by Advanced Agentic Coding.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
