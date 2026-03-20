@@ -1,48 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const userProfile = document.getElementById('user-profile');
     const toolCards = document.querySelectorAll('.tool-card');
     const tabBtns = document.querySelectorAll('.tab-btn');
 
-    // --- 鎖定系統 ---
-    const updateLockState = (isLoggedIn) => {
-        const type2Cards = document.querySelectorAll('.tool-card.type2');
-        type2Cards.forEach(card => {
-            if (isLoggedIn) {
-                card.classList.remove('locked');
-                card.classList.add('unlocked');
-                card.querySelector('.tool-btn').innerText = '立即啟動';
-            } else {
-                card.classList.add('locked');
-                card.classList.remove('unlocked');
-                card.querySelector('.tool-btn').innerText = '需要授權';
-            }
-        });
-    };
-
-    // --- 登入控制 ---
-    loginBtn.addEventListener('click', () => {
-        // 模擬 Google 登入流程
-        loginBtn.classList.add('loading');
-        loginBtn.innerHTML = '<span class="loader"></span> 串接中...';
-        
-        setTimeout(() => {
-            loginBtn.classList.add('hidden');
-            userProfile.classList.remove('hidden');
-            updateLockState(true);
-            
-            // 系統音效或震動模擬 (僅視覺反饋)
-            console.log('User authenticated successfully.');
-        }, 1200);
-    });
-
-    logoutBtn.addEventListener('click', () => {
-        userProfile.classList.add('hidden');
-        loginBtn.classList.remove('hidden');
-        loginBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg> Google 登入';
-        updateLockState(false);
-    });
+    // --- 日期顯示 ---
+    const dateDisplay = document.getElementById('date-display');
+    if (dateDisplay) {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+        const weekday = weekdays[now.getDay()];
+        dateDisplay.innerText = `${year}/${month}/${day} (${weekday})`;
+    }
 
     // --- 篩選系統 ---
     tabBtns.forEach(btn => {
